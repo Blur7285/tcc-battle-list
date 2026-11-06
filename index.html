@@ -499,8 +499,7 @@ function render(filter) {
             <a class="link sp" target="_blank" rel="noopener" href="${spUrl(s)}">Spotify</a>
           </div>
         </div>
-        <button type="button" class="play-card" data-play-idx="${s._idx}"
-          aria-label="Play ${escapeHtml(s.title)}" ${s.ytId ? "" : "disabled title=\\"No YouTube video linked\\""}>▶</button>
+        <button type="button" class="play-card" data-play-idx="${s._idx}" aria-label="Play ${escapeHtml(s.title)}" ${s.ytId ? "" : "disabled"} title="${s.ytId ? "Play" : "No YouTube video linked"}">▶</button>
       </div>
     </article>`).join("");
   highlightPlaying();
