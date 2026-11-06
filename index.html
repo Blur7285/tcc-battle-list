@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="TCC Union Battle List — curated fight and pump-up anthems for the members.">
+<title>TCC Union Battle List</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --bg2: #121a2b;
+    --card: #182338;
+    --card-border: #243352;
+    --text: #f4f7ff;
+    --muted: #9aa8c7;
+    --accent: #ff3b3b;
+    --accent2: #ffb020;
+    --ok: #2dd4a8;
+    --line: #243352;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --radius: 16px;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--font); }
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(255,59,59,.18), transparent 55%),
+      radial-gradient(900px 500px at 100% 0%, rgba(255,176,32,.12), transparent 50%),
+      var(--bg);
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 20px 16px 48px; }
+  header {
+    display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+    gap: 12px; margin-bottom: 18px;
+  }
+  .brand { display: flex; flex-direction: column; gap: 4px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent2);
+  }
+  h1 {
+    margin: 0; font-size: clamp(1.6rem, 5vw, 2.1rem); line-height: 1.15;
+    letter-spacing: -.02em;
+  }
+  h1 span { color: var(--accent); }
+  .tagline { margin: 0; color: var(--muted); font-size: .95rem; }
+  .share-btn {
+    appearance: none; border: 0; cursor: pointer;
+    background: linear-gradient(135deg, var(--accent), #ff6a3d);
+    color: white; font-weight: 800; font-size: .95rem;
+    padding: 12px 16px; border-radius: 999px; box-shadow: var(--shadow);
+  }
+  .share-btn:active { transform: translateY(1px); }
+  .toolbar {
+    display: flex; flex-direction: column; gap: 10px; margin: 18px 0 14px;
+  }
+  .search {
+    width: 100%; padding: 14px 16px; border-radius: 12px;
+    border: 1px solid var(--line); background: var(--bg2); color: var(--text);
+    font-size: 1rem; outline: none;
+  }
+  .search:focus { border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(255,176,32,.15); }
+  .meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--muted); font-size: .85rem; gap: 8px;
+  }
+  .count { font-weight: 700; color: var(--text); }
+  .list { display: flex; flex-direction: column; gap: 12px; }
+  .song {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow);
+  }
+  .song-top { display: flex; gap: 12px; align-items: flex-start; }
+  .num {
+    flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px;
+    display: grid; place-items: center; font-weight: 800; font-size: .9rem;
+    background: rgba(255,59,59,.15); color: var(--accent);
+  }
+  .song h2 { margin: 0 0 2px; font-size: 1.1rem; line-height: 1.25; }
+  .artist { margin: 0; color: var(--muted); font-size: .92rem; font-weight: 600; }
+  .why { margin: 10px 0 0; color: #d7deef; font-size: .92rem; line-height: 1.4; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .link {
+    text-decoration: none; font-weight: 700; font-size: .85rem;
+    padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line);
+    color: var(--text); background: var(--bg2);
+  }
+  .link.yt:hover, .link.yt:focus { border-color: #ff0033; color: #ff7a93; }
+  .link.sp:hover, .link.sp:focus { border-color: #1db954; color: #6dffab; }
+  .empty {
+    text-align: center; padding: 36px 18px; border-radius: var(--radius);
+    border: 1px dashed var(--card-border); background: rgba(24,35,56,.55);
+  }
+  .empty h2 { margin: 0 0 8px; font-size: 1.2rem; }
+  .empty p { margin: 0; color: var(--muted); line-height: 1.45; }
+  .panel {
+    margin-top: 22px; background: var(--card); border: 1px solid var(--card-border);
+    border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+  }
+  .panel h2 { margin: 0 0 6px; font-size: 1.15rem; }
+  .panel .hint { margin: 0 0 14px; color: var(--muted); font-size: .9rem; line-height: 1.4; }
+  form { display: flex; flex-direction: column; gap: 10px; }
+  label { font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  input, textarea {
+    width: 100%; padding: 12px 14px; border-radius: 12px;
+    border: 1px solid var(--line); background: var(--bg2); color: var(--text);
+    font: inherit; outline: none;
+  }
+  input:focus, textarea:focus { border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(255,176,32,.15); }
+  textarea { min-height: 88px; resize: vertical; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .primary, .ghost {
+    appearance: none; border: 0; cursor: pointer; font-weight: 800; font-size: .95rem;
+    padding: 12px 16px; border-radius: 999px;
+  }
+  .primary { background: linear-gradient(135deg, var(--accent2), #ff7a18); color: #1a1205; }
+  .ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  .toast {
+    position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%) translateY(20px);
+    background: #102018; color: var(--ok); border: 1px solid rgba(45,212,168,.35);
+    padding: 10px 14px; border-radius: 999px; font-weight: 700; font-size: .9rem;
+    opacity: 0; pointer-events: none; transition: .25s ease; z-index: 20;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  footer { margin-top: 28px; color: var(--muted); font-size: .8rem; text-align: center; line-height: 1.45; }
+  @media (min-width: 640px) {
+    .toolbar { flex-direction: row; align-items: center; }
+    .search { flex: 1; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="badge">TCC Union · Battle Playlist</div>
+        <h1>TCC Union <span>Battle List</span></h1>
+        <p class="tagline">Curated fight, labor, and pump-up anthems for the members.</p>
+      </div>
+      <button type="button" class="share-btn" id="shareBtn" aria-label="Share this playlist">Share</button>
+    </header>
+
+    <div class="toolbar">
+      <input class="search" id="q" type="search" placeholder="Search title, artist, or note…" autocomplete="off" enterkeyhint="search">
+      <div class="meta-row">
+        <span><span class="count" id="count">0</span> songs</span>
+        <span>No login needed</span>
+      </div>
+    </div>
+
+    <div class="list" id="list" aria-live="polite"></div>
+
+    <section class="panel" id="suggest">
+      <h2>Suggest a tune</h2>
+      <p class="hint">Got a banger that belongs here? Send it to the curator. Your mail app opens with the details filled in — nothing is stored on a server.</p>
+      <form id="suggestForm">
+        <div>
+          <label for="songTitle">Song title</label>
+          <input id="songTitle" name="title" required placeholder="e.g. Solidarity Forever" maxlength="120">
+        </div>
+        <div>
+          <label for="songArtist">Artist</label>
+          <input id="songArtist" name="artist" required placeholder="e.g. Pete Seeger" maxlength="120">
+        </div>
+        <div>
+          <label for="songWhy">Why it fits (optional)</label>
+          <textarea id="songWhy" name="why" placeholder="One line on why this pumps the room" maxlength="400"></textarea>
+        </div>
+        <div>
+          <label for="songFrom">Your name (optional)</label>
+          <input id="songFrom" name="from" placeholder="Member name" maxlength="80">
+        </div>
+        <div class="actions">
+          <button type="submit" class="primary">Email suggestion</button>
+          <button type="button" class="ghost" id="saveLocal">Save draft on this device</button>
+        </div>
+      </form>
+    </section>
+
+    <footer>
+      TCC Union Battle List · shared among members · curated by Michael<br>
+      Suggestions go to the curator by email. Playback is via YouTube or Spotify search links.
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+<script>
+const CURATOR = "mmurray7285@gmail.com";
+const PAGE_URL = location.href.split("#")[0];
+
+const SONGS = [
+  {
+    title: "Bodies",
+    artist: "Drowning Pool",
+    why: "Michael's pick — the room-shaker that gets everyone locked in."
+  },
+  {
+    title: "Barcelona",
+    artist: "Sophie Tucker",
+    why: "Michael's pick — classic swagger with big-stage energy."
+  },
+  {
+    title: "Bad Times",
+    artist: "Imael Angel",
+    why: "Michael's pick — dark-house grit for pushing through a hard stretch."
+  },
+  {
+    title: "8 Ball",
+    artist: "Underworld",
+    why: "Michael's pick — long-haul electronic drive from The Beach soundtrack."
+  },
+  {
+    title: "Koi de Paradise (恋でパラダイス)",
+    artist: "Saori Yuki",
+    why: "Michael's pick — Saori Yuki's latest 2026 single; bright forward motion."
+  }
+];
+
+const listEl = document.getElementById("list");
+const countEl = document.getElementById("count");
+const qEl = document.getElementById("q");
+const toastEl = document.getElementById("toast");
+const DRAFT_KEY = "tcc-battle-list-draft";
+
+function ytUrl(title, artist) {
+  return "https://www.youtube.com/results?search_query=" + encodeURIComponent(title + " " + artist);
+}
+function spUrl(title, artist) {
+  return "https://open.spotify.com/search/" + encodeURIComponent(title + " " + artist);
+}
+
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => toastEl.classList.remove("show"), 2200);
+}
+
+function render(filter) {
+  const q = (filter || "").trim().toLowerCase();
+  const items = SONGS.filter(s => {
+    if (!q) return true;
+    return (s.title + " " + s.artist + " " + (s.why || "")).toLowerCase().includes(q);
+  });
+  countEl.textContent = String(items.length);
+  if (!items.length) {
+    listEl.innerHTML = `
+      <div class="empty">
+        <h2>${SONGS.length ? "No matches" : "The list is waiting for its first anthem"}</h2>
+        <p>${SONGS.length
+          ? "Try another search, or <a href=\"#suggest\" style=\"color:var(--accent2)\">suggest a tune</a> the curator hasn't added yet."
+          : "Members — drop the first battle anthem with <strong>Suggest a tune</strong> below. The curator will add keepers here."}</p>
+      </div>`;
+    return;
+  }
+  listEl.innerHTML = items.map((s, i) => `
+    <article class="song">
+      <div class="song-top">
+        <div class="num">${i + 1}</div>
+        <div>
+          <h2>${escapeHtml(s.title)}</h2>
+          <p class="artist">${escapeHtml(s.artist)}</p>
+          ${s.why ? `<p class="why">${escapeHtml(s.why)}</p>` : ""}
+          <div class="links">
+            <a class="link yt" target="_blank" rel="noopener" href="${ytUrl(s.title, s.artist)}">YouTube</a>
+            <a class="link sp" target="_blank" rel="noopener" href="${spUrl(s.title, s.artist)}">Spotify</a>
+          </div>
+        </div>
+      </div>
+    </article>`).join("");
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+qEl.addEventListener("input", () => render(qEl.value));
+
+document.getElementById("shareBtn").addEventListener("click", async () => {
+  const data = {
+    title: "TCC Union Battle List",
+    text: "Curated battle playlist for TCC Union members",
+    url: PAGE_URL
+  };
+  try {
+    if (navigator.share) {
+      await navigator.share(data);
+      return;
+    }
+  } catch (e) {
+    if (e && e.name === "AbortError") return;
+  }
+  try {
+    await navigator.clipboard.writeText(PAGE_URL);
+    showToast("Link copied");
+  } catch (_) {
+    prompt("Copy this link:", PAGE_URL);
+  }
+});
+
+document.getElementById("suggestForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const title = document.getElementById("songTitle").value.trim();
+  const artist = document.getElementById("songArtist").value.trim();
+  const why = document.getElementById("songWhy").value.trim();
+  const from = document.getElementById("songFrom").value.trim();
+  const subject = "TCC Battle List suggestion: " + title + " — " + artist;
+  const body = [
+    "Song: " + title,
+    "Artist: " + artist,
+    why ? "Why it fits: " + why : null,
+    from ? "From: " + from : null,
+    "",
+    "Sent from the TCC Union Battle List page."
+  ].filter(Boolean).join("\n");
+  const mailto = "mailto:" + encodeURIComponent(CURATOR)
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body=" + encodeURIComponent(body);
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({ title, artist, why, from, savedAt: Date.now() }));
+  } catch (_) {}
+  location.href = mailto;
+});
+
+document.getElementById("saveLocal").addEventListener("click", () => {
+  const draft = {
+    title: document.getElementById("songTitle").value.trim(),
+    artist: document.getElementById("songArtist").value.trim(),
+    why: document.getElementById("songWhy").value.trim(),
+    from: document.getElementById("songFrom").value.trim(),
+    savedAt: Date.now()
+  };
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    showToast("Draft saved on this device");
+  } catch (_) {
+    showToast("Could not save draft");
+  }
+});
+
+(function restoreDraft() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    if (d.title) document.getElementById("songTitle").value = d.title;
+    if (d.artist) document.getElementById("songArtist").value = d.artist;
+    if (d.why) document.getElementById("songWhy").value = d.why;
+    if (d.from) document.getElementById("songFrom").value = d.from;
+  } catch (_) {}
+})();
+
+render("");
+</script>
+</body>
+</html>
