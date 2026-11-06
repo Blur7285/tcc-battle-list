@@ -197,7 +197,9 @@ const SONGS = [
   {
     title: "Bodies",
     artist: "Drowning Pool",
-    why: "the room-shaker that gets everyone locked in."
+    why: "the room-shaker that gets everyone locked in.",
+    youtube: "https://www.youtube.com/watch?v=04F4xlWSFh0",
+    spotify: "https://open.spotify.com/track/0gaP2rTeFB5onIi70rolNU"
   },
   {
     title: "Barcelona",
@@ -206,23 +208,45 @@ const SONGS = [
   },
   {
     title: "Throwin' Elbows",
-    artist: "Excision",
-    why: "heavy bass drop energy for the fight."
+    artist: "Excision & Space Laces",
+    why: "heavy bass drop energy for the fight.",
+    youtube: "https://www.youtube.com/watch?v=UNUkh58DzLY",
+    spotify: "https://open.spotify.com/track/5Z9gjSD3mglkexfM8QbGHo"
   },
   {
     title: "Bad Times",
     artist: "Imael Angel",
-    why: "dark-house grit for pushing through a hard stretch."
+    why: "dark-house grit for pushing through a hard stretch.",
+    youtube: "https://www.youtube.com/watch?v=Y9zD0mehRqM",
+    spotify: "https://open.spotify.com/track/7zpSpnIt02esnXYGyGUyJr"
   },
   {
     title: "8 Ball",
     artist: "Underworld",
-    why: "long-haul electronic drive from The Beach soundtrack."
+    why: "long-haul electronic drive from The Beach soundtrack.",
+    youtube: "https://www.youtube.com/watch?v=N5XYFook7tI",
+    spotify: "https://open.spotify.com/track/1tnhrn0zNTQGbo77wNwy44"
   },
   {
     title: "Koi de Paradise (恋でパラダイス)",
     artist: "Saori Yuki with Banksia Trio",
     why: "2026 single 恋でパラダイス with Banksia Trio; bright forward motion."
+  },
+  {
+    title: "Boss Bitch",
+    artist: "Doja Cat",
+    why: "Throwdown energy (Surfgirl called it Bad Bitch).",
+    credit: "Suggested by Surfgirl",
+    youtube: "https://www.youtube.com/watch?v=RsW66teC0BQ",
+    spotify: "https://open.spotify.com/track/78qd8dvwea0Gosb6Fe6j3k"
+  },
+  {
+    title: "Light Em Up",
+    artist: "Fall Out Boy",
+    why: "Throwback — My Songs Know What You Did in the Dark (Light Em Up).",
+    credit: "Suggested by Surfgirl",
+    youtube: "https://www.youtube.com/watch?v=LkIWmsP3c_s",
+    spotify: "https://open.spotify.com/track/7oOHp5A63GfEH3q9rdCnCF"
   }
 ];
 
@@ -232,11 +256,11 @@ const qEl = document.getElementById("q");
 const toastEl = document.getElementById("toast");
 const DRAFT_KEY = "tcc-battle-list-draft";
 
-function ytUrl(title, artist) {
-  return "https://www.youtube.com/results?search_query=" + encodeURIComponent(title + " " + artist);
+function ytUrl(song) {
+  return song.youtube || ("https://www.youtube.com/results?search_query=" + encodeURIComponent(song.title + " " + song.artist));
 }
-function spUrl(title, artist) {
-  return "https://open.spotify.com/search/" + encodeURIComponent(title + " " + artist);
+function spUrl(song) {
+  return song.spotify || ("https://open.spotify.com/search/" + encodeURIComponent(song.title + " " + song.artist));
 }
 
 function showToast(msg) {
@@ -270,10 +294,11 @@ function render(filter) {
         <div>
           <h2>${escapeHtml(s.title)}</h2>
           <p class="artist">${escapeHtml(s.artist)}</p>
+          ${s.credit ? `<p class="credit">${escapeHtml(s.credit)}</p>` : ""}
           ${s.why ? `<p class="why">${escapeHtml(s.why)}</p>` : ""}
           <div class="links">
-            <a class="link yt" target="_blank" rel="noopener" href="${ytUrl(s.title, s.artist)}">YouTube</a>
-            <a class="link sp" target="_blank" rel="noopener" href="${spUrl(s.title, s.artist)}">Spotify</a>
+            <a class="link yt" target="_blank" rel="noopener" href="${ytUrl(s)}">YouTube</a>
+            <a class="link sp" target="_blank" rel="noopener" href="${spUrl(s)}">Spotify</a>
           </div>
         </div>
       </div>
